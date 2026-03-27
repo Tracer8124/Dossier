@@ -42,7 +42,7 @@ const projects = [
             "Deployed components onto scalable AWS infrastructure to ensure production reliability."
         ],
         tech: "YOLOv5, CNN, Faster R-CNN",
-        image: "/projects/max-life.png"
+        image: "/object-detection.jpg"
     },
     {
         title: "OCR Validation Pipelines",
