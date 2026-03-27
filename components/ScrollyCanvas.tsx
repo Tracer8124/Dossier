@@ -1,123 +1,79 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { useScroll, motion, useTransform, useMotionValue, useSpring } from "framer-motion";
+import Image from "next/image";
 import Overlay from "./Overlay";
 
-export default function ScrollyCanvas({ frameCount = 75 }: { frameCount?: number }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+export default function ScrollyCanvas() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [images, setImages] = useState<HTMLImageElement[]>([]);
-    const [isLoaded, setIsLoaded] = useState(false);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"],
     });
 
-    useEffect(() => {
-        const loadImages = async () => {
-            const loadedImages: HTMLImageElement[] = [];
-            const promises: Promise<void>[] = [];
+    const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+    const opacity = useTransform(scrollYProgress, [0, 0.3, 1], [1, 0.2, 0]);
 
-            for (let i = 0; i < frameCount; i++) {
-                const promise = new Promise<void>((resolve) => {
-                    const img = new Image();
-                    const frameId = i.toString().padStart(4, "0");
-                    img.src = `/sequence/${frameId}.png`;
-                    img.onload = () => {
-                        loadedImages[i] = img;
-                        resolve();
-                    };
-                    // Handle error gracefully
-                    img.onerror = () => resolve();
-                });
-                promises.push(promise);
-            }
+    // Setup 3D Mouse Parallax
+    const mouseX = useMotionValue(0.5);
+    const mouseY = useMotionValue(0.5);
 
-            await Promise.all(promises);
-            setImages(loadedImages);
-            setIsLoaded(true);
-        };
-
-        loadImages();
-    }, [frameCount]);
-
-    const renderFrame = (index: number) => {
-        const canvas = canvasRef.current;
-        if (!canvas || !images[index]) return;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        const img = images[index];
-
-        // Responsive Object-Fit Cover Logic
-        const canvasRatio = canvas.width / canvas.height;
-        const imgRatio = img.width / img.height;
-
-        let drawWidth, drawHeight, offsetX, offsetY;
-
-        if (imgRatio > canvasRatio) {
-            drawHeight = canvas.height;
-            drawWidth = img.width * (canvas.height / img.height);
-            offsetX = (canvas.width - drawWidth) / 2;
-            offsetY = 0;
-        } else {
-            drawWidth = canvas.width;
-            drawHeight = img.height * (canvas.width / img.width);
-            offsetX = 0;
-            offsetY = (canvas.height - drawHeight) / 2;
-        }
-
-        // Clear and Draw
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#121212";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    const handleMouseMove = (event: React.MouseEvent) => {
+        // Normalize mouse coordinates from -1 to 1 based on screen size
+        const { clientX, clientY } = event;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        mouseX.set((clientX / width) * 2 - 1);
+        mouseY.set((clientY / height) * 2 - 1);
     };
 
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        if (!isLoaded || images.length === 0) return;
-        const frameIndex = Math.min(
-            frameCount - 1,
-            Math.floor(latest * frameCount)
-        );
-        requestAnimationFrame(() => renderFrame(frameIndex));
-    });
+    // Apply smooth spring physics to the mouse tracking
+    const smoothMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+    const smoothMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
-    // Handle resize
-    useEffect(() => {
-        const handleResize = () => {
-            if (canvasRef.current) {
-                canvasRef.current.width = window.innerWidth;
-                canvasRef.current.height = window.innerHeight;
-            }
-        }
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    // Initial render when loaded
-    useEffect(() => {
-        if (isLoaded) {
-            renderFrame(0);
-        }
-    }, [isLoaded]);
+    // Calculate rotation and translation based on the smoothed mouse position
+    const rotateX = useTransform(smoothMouseY, [-1, 1], [10, -10]);
+    const rotateY = useTransform(smoothMouseX, [-1, 1], [-10, 10]);
+    const bgX = useTransform(smoothMouseX, [-1, 1], [-15, 15]);
+    const bgY = useTransform(smoothMouseY, [-1, 1], [-15, 15]);
 
     return (
-        <div ref={containerRef} className="h-[500vh] relative">
-            <div className="sticky top-0 h-screen w-full overflow-hidden">
-                {!isLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center text-white z-50">
-                        Loading...
+        <div ref={containerRef} className="h-[300vh] relative">
+            <div 
+                className="sticky top-0 h-screen w-full overflow-hidden bg-[#121212]"
+                style={{ perspective: 1000 }}
+                onMouseMove={handleMouseMove}
+            >
+                <motion.div 
+                    style={{ 
+                        scale, 
+                        opacity,
+                        rotateX,
+                        rotateY,
+                        x: bgX,
+                        y: bgY,
+                    }} 
+                    className="absolute inset-0 w-full h-full origin-center"
+                >
+                    {/* The Full Uncropped Photo - Crystal Clear */}
+                    <div className="absolute inset-0 z-10 p-2 md:p-12">
+                        <Image
+                            src="/Profile.jpeg"
+                            alt="Tanvi Ligade"
+                            fill
+                            priority
+                            className="object-contain"
+                            quality={100}
+                            unoptimized={true}
+                        />
                     </div>
-                )}
-                <canvas
-                    ref={canvasRef}
-                    className="block w-full h-full object-cover"
-                />
+
+                    {/* Subtle gradients to make text strictly readable, without ruining the photo */}
+                    <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#121212] via-transparent to-transparent pointer-events-none" />
+                </motion.div>
+                
                 <Overlay scrollYProgress={scrollYProgress} />
             </div>
         </div>

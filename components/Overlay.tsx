@@ -57,16 +57,16 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
     return (
         <>
             <Section
-                text="Rajesh Chityal."
-                subText="Senior Full Stack Developer"
+                text="Tanvi Ligade."
+                subText="Machine Learning Engineer"
                 align="center"
                 start={0.05}
                 end={0.2}
                 scrollYProgress={scrollYProgress}
             />
             <Section
-                text="5+ Years Experience."
-                subText="Specializing in React, Node.js, and Scalable Microservices."
+                text="3+ Years Experience."
+                subText="Specializing in Python, AI systems, and scalable ML pipelines."
                 align="left"
                 start={0.3}
                 end={0.45}
@@ -74,7 +74,7 @@ export default function Overlay({ scrollYProgress }: { scrollYProgress: MotionVa
             />
             <Section
                 text="Innovating with AI."
-                subText="Building AI Agents & Voice Assistance Systems."
+                subText="Expanding expertise in NLP, LLMs, and research-driven AI."
                 align="right"
                 start={0.6}
                 end={0.75}

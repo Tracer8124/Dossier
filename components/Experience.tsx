@@ -4,28 +4,22 @@ import { motion } from "framer-motion";
 
 const experiences = [
     {
-        company: "Logic Loop",
-        role: "Full Stack Developer",
-        period: "Sep 2024 – Present",
-        description: "Built proprietary low-code platforms and e-commerce solutions. Extended Solid platform with automation modules for Bond Cancellation.",
+        company: "Santander Bank",
+        role: "Python Developer",
+        period: "July 2025 – Oct 2025",
+        description: "Handled structured financial datasets. Developed SQL ETL pipelines using Pandas/NumPy, performing data reconciliation across banking databases.",
     },
     {
-        company: "Neosoft",
-        role: "Full Stack Developer",
-        period: "June 2024 – Aug 2024",
-        description: "Developed Resume Builder using micro-frontend architecture. Integrated independent React micro-apps with Node.js backend.",
+        company: "KPIT",
+        role: "Software Developer",
+        period: "Oct 2022 – July 2025",
+        description: "Built & deployed deep learning models (YOLOv5, CNN, Faster R-CNN) for object recognition. Integrated AWS ML pipelines and analytical dashboards.",
     },
     {
-        company: "Monocept (Max Life Insurance)",
-        role: "Senior Full Stack Developer",
-        period: "Oct 2021 – May 2024",
-        description: "Led development of Mpro insurance platform. Migrated modules to microservices and delivered critical operational features.",
-    },
-    {
-        company: "Ikshan",
-        role: "Full Stack Developer",
-        period: "Sep 2020 – Aug 2021",
-        description: "Built multiple client applications from scratch including Jibra and Green Aggregation. Designed UI and integrated full-stack authentication.",
+        company: "Defence Research and Development Organisation (DRDO)",
+        role: "Machine Learning Intern",
+        period: "Nov 2021 – July 2022",
+        description: "Developed and tested ML models for real-world datasets. Implemented feature engineering, evaluated algorithms, and translated research prototypes into solutions.",
     },
 ];
 
