@@ -39,4 +39,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to explore
 
 Feel free to connect or reach out regarding Machine Learning, Data Engineering, or AI development opportunities!
 - **Email:** tanviligade8199@gmail.com
-- **Phone:** 7875660831
+
