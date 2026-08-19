@@ -21,9 +21,12 @@ export default function SkillsEducation() {
           <div className="space-y-6">
             {[
               { name: "Python", prof: "80%" },
-              { name: "Model Development", prof: "60%" },
+              { name: "Data Analysis (Pandas, NumPy, Matplotlib)", prof: "70%" },
+              { name: "Model Development", prof: "65%" },
               { name: "ML Frameworks", prof: "60%" },
-              { name: "NLP and LLM", prof: "40%" },
+              { name: "NLP and LLM", prof: "60%" },
+              { name: "Web Development", prof: "55%" },
+              { name: "Web Scraping / Automation", prof: "40%" },
               { name: "AWS", prof: "40%" },
               { name: "Git", prof: "40%" },
             ].map((skill, index) => (

@@ -57,6 +57,63 @@ const projects = [
         tech: "Python, OCR, AWS",
         image: "/projects/bond-cancellation.png"
     },
+    {
+        title: "Credit Card Fraud Detection",
+        category: "Machine Learning / Classification",
+        description: "Built a machine learning pipeline to detect fraudulent credit card transactions on a highly imbalanced dataset using ensemble and sampling techniques.",
+        details: [
+            "Handled severe class imbalance using SMOTE and undersampling techniques to improve minority class detection.",
+            "Trained and compared multiple classifiers including Logistic Regression, Random Forest, and XGBoost.",
+            "Achieved high recall on fraud cases to minimize false negatives, a critical metric in financial fraud.",
+            "Performed feature engineering and correlation analysis to identify key fraud indicators.",
+            "Evaluated models using precision-recall curves, ROC-AUC, and confusion matrices."
+        ],
+        tech: "Python, XGBoost, Scikit-learn, SMOTE",
+        image: "/projects/Credit_card.png"
+    },
+    {
+        title: "Weather Prediction",
+        category: "Machine Learning / Time Series",
+        description: "Developed a weather forecasting model using historical meteorological data to predict temperature, humidity, and rainfall with high accuracy.",
+        details: [
+            "Collected and preprocessed multi-year historical weather datasets including temperature, wind speed, and humidity.",
+            "Engineered time-based features such as rolling averages and lag variables to capture seasonal trends.",
+            "Trained LSTM and regression models for short-term weather forecasting.",
+            "Visualized prediction results against actual values using Matplotlib and Seaborn.",
+            "Evaluated model performance using MAE and RMSE across multiple weather parameters."
+        ],
+        tech: "Python, LSTM, Pandas, Matplotlib",
+        image: "/projects/Wether_detection.png"
+    },
+    {
+        title: "Hand Gesture Recognition",
+        category: "Computer Vision",
+        description: "Built a real-time hand gesture recognition system using computer vision to classify hand gestures from a live webcam feed.",
+        details: [
+            "Used MediaPipe Hands to extract 21 3D hand landmark coordinates in real time.",
+            "Trained a classification model on custom-collected gesture data across multiple gesture classes.",
+            "Implemented real-time inference pipeline from webcam feed to gesture label with low latency.",
+            "Applied data augmentation techniques to improve model generalization across different hand sizes and orientations.",
+            "Achieved high classification accuracy across all gesture categories in real-world conditions."
+        ],
+        tech: "Python, OpenCV, MediaPipe, Scikit-learn",
+        image: "/projects/hand_gesutre_detection.png"
+    },
+    {
+        title: "Drone Security System",
+        category: "Computer Vision / Security",
+        description: "Designed an AI-powered drone surveillance system with a real-time web dashboard, GPS tracking, rule-based alert engine, and 55+ automated tests.",
+        details: [
+            "Built a real-time web dashboard using Flask REST API with dark-mode glassmorphism UI for live monitoring.",
+            "Integrated Leaflet.js interactive GPS map to visualize the drone patrol route and security events.",
+            "Designed a rule-based alert engine with 6 configurable security rules including loitering, perimeter breach, and after-hours detection.",
+            "Stored and queried video frame data using SQLite with 5 optimized query methods for fast retrieval.",
+            "Used regex-based NLP to extract objects (vehicles, people, animals) from video frame descriptions.",
+            "Wrote 55+ unit and integration tests using pytest ensuring full pipeline coverage."
+        ],
+        tech: "Python, Flask, Leaflet.js, SQLite, pytest",
+        image: "/projects/drone.png"
+    },
 ];
 
 export default function Projects() {

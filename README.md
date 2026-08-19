@@ -35,7 +35,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to explore the portfolio locally.
 
-## 📫 Contact
 
 Feel free to connect or reach out regarding Machine Learning, Data Engineering, or AI development opportunities!
 - **Email:** tanviligade8199@gmail.com
